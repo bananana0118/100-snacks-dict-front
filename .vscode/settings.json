@@ -1,0 +1,9 @@
+{    
+    
+    "tailwindCSS.experimental.configFile": "./src/app/globals.css",
+  // 만약 CSS 엔트리 파일 경로를 잡아줘야 하면
+  "files.associations": {
+    "src/index.css": "css"
+  }
+
+}
