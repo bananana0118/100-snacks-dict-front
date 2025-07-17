@@ -1,5 +1,4 @@
 {
-
   "tailwindCSS.experimental.configFile": "./src/app/globals.css",
   // 만약 CSS 엔트리 파일 경로를 잡아줘야 하면
   "files.associations": {
@@ -11,5 +10,4 @@
 
   // 저장할 때 불필요한 공백 자동 제거 (선택)
   "files.trimTrailingWhitespace": true
-
 }
