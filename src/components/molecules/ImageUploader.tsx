@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useRef, useState } from 'react';
 
 export default function ImageUploader() {
@@ -27,6 +28,7 @@ export default function ImageUploader() {
         type="file"
         accept="image/*"
         ref={inputRef}
+        name="image"
         className="hidden"
         onChange={handleFileChange}
       />
@@ -34,15 +36,19 @@ export default function ImageUploader() {
       {/* 클릭 영역 */}
       <div
         onClick={handleBoxClick}
-        className={`flex h-64 w-full cursor-pointer items-center justify-center border-2 border-blue-500 ${preview ? 'p-0' : 'bg-gray-100'} `}
+        className={`flex h-[200px] w-full cursor-pointer items-center justify-center border-2 border-blue-500 ${preview ? 'p-0' : 'bg-gray-100'} `}
       >
         {preview ? (
           // 미리보기 이미지
-          <img
-            src={preview}
-            alt="선택된 이미지"
-            className="h-full w-full object-cover"
-          />
+          <div className="relative h-[200px] w-[380px]">
+            <Image
+              src={preview}
+              alt="선택된 이미지"
+              fill
+              unoptimized
+              style={{ objectFit: 'contain' }}
+            />
+          </div>
         ) : (
           // 기본 안내 문구
           <span className="text-gray-500">이미지 등록하려면 누르세요</span>
