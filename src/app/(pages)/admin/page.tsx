@@ -42,11 +42,9 @@ const Page = () => {
     }
 
     const flavors = formData.getAll('flavor') as string[];
-    console.log(flavors);
 
     // 3) 이미지 파일
     const file = formData.get('image') as File | null;
-    console.log('file:', file);
 
     // const res = await fetch('/api/snack', {
     //   method: 'POST',
