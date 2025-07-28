@@ -1,3 +1,5 @@
+import HomeTile from '@/components/molecules/HomeTile';
+
 export default function Home() {
   return (
     <div className="flex h-screen flex-col">
@@ -9,7 +11,7 @@ export default function Home() {
         </div>
       </header>
       <main className="flex-1">
-        <section>신상과자는 여기서 보세요</section>
+        <HomeTile />
         <section className="flex flex-row gap-10">
           <section className="flex min-w-fit flex-1 flex-col">
             <p>6월 출시일 순</p>
