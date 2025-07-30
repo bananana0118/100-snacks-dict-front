@@ -1,4 +1,5 @@
 import HomeTile from '@/components/molecules/HomeTile';
+import SnackListItem from '@/components/molecules/SnackListItem';
 
 export default function Home() {
   return (
@@ -17,16 +18,7 @@ export default function Home() {
             <p>6월 출시일 순</p>
             <ul className="flex flex-col gap-5">
               {Array.from({ length: 21 }).map((_, idx) => (
-                <li
-                  key={idx}
-                  className="flex h-6 items-center justify-between gap-2.5 text-xl"
-                >
-                  <div>
-                    icon<span>빅파이</span>
-                  </div>
-                  <hr className="flex w-1 flex-1"></hr>
-                  <div>파이(달콤)</div>
-                </li>
+                <SnackListItem key={idx} />
               ))}
             </ul>
           </section>
