@@ -5,6 +5,7 @@ export enum Flavor {
   Savory = 'savory', // 짭짤
   Spicy = 'spicy', // 매콤
   Bitter = 'bitter', // 쌉싸름
+  Greasy = 'greasy', //느끼함
 }
 
 export const flavorOptions = [
@@ -13,4 +14,5 @@ export const flavorOptions = [
   { value: Flavor.Savory, label: '짭짤' },
   { value: Flavor.Spicy, label: '매콤' },
   { value: Flavor.Bitter, label: '쌉싸름' },
+  { value: Flavor.Greasy, label: '느끼함' },
 ];

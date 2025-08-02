@@ -1,7 +1,19 @@
+'use client';
 import HomeTile from '@/components/molecules/HomeTile';
 import SnackListItem from '@/components/molecules/SnackListItem';
+import { useEffect } from 'react';
 
 export default function Home() {
+  const initiateMain = async () => {
+    const res = await fetch('http://localhost:3000/snack/');
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const data = await res.json();
+    console.log(data);
+  };
+
+  useEffect(() => {
+    initiateMain();
+  }, []);
   return (
     <div className="flex h-screen flex-col">
       <header>
