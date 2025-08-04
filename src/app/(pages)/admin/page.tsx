@@ -3,10 +3,10 @@ import CheckBoxWithLabel from '@/components/molecules/CheckBoxWithLabel';
 import ImageUploader from '@/components/molecules/ImageUploader';
 import SelectList from '@/components/molecules/SelectList';
 import { brandOptions } from '@/constants/Brand';
-import { Flavor, flavorOptions } from '@/constants/Flavors';
 import { priceRangeOptions } from '@/constants/PriceRange';
 import { snackOptions } from '@/constants/SnackCategory';
 import { storeOptions } from '@/constants/Store';
+import { Tastes, TastesOptions } from '@/constants/Tastes';
 import { Button, Field, Input, Label } from '@headlessui/react';
 import { useState } from 'react';
 
@@ -17,9 +17,9 @@ export interface Option<T extends string> {
 }
 
 const Page = () => {
-  const [selected, setSelected] = useState<Flavor[]>([]);
+  const [selected, setSelected] = useState<Tastes[]>([]);
 
-  const toggleFlavor = (flavor: Flavor) => {
+  const toggleFlavor = (flavor: Tastes) => {
     if (selected.includes(flavor)) {
       setSelected(selected.filter((f) => f !== flavor));
     } else if (selected.length < 4) {
@@ -40,11 +40,6 @@ const Page = () => {
     for (const [key, val] of formData.entries()) {
       console.log(key, val);
     }
-
-    const flavors = formData.getAll('flavor') as string[];
-
-    // 3) 이미지 파일
-    const file = formData.get('image') as File | null;
 
     // const res = await fetch('/api/snack', {
     //   method: 'POST',
@@ -97,7 +92,7 @@ const Page = () => {
               </legend>
 
               <div className="flex w-full flex-row gap-2">
-                {flavorOptions.map((opt) => {
+                {TastesOptions.map((opt) => {
                   const isChecked = selected.includes(opt.value);
                   const isDisabled = !isChecked && selected.length >= 4;
                   return (
