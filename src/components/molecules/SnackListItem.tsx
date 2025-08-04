@@ -1,3 +1,4 @@
+import { TASTE_CODE_TO_NAME } from '@/constants/Tastes';
 import { SnackItem } from '@/services/snack/sncakService';
 
 type SnackListItemProps = {
@@ -12,10 +13,15 @@ const SnackListItem = ({ snack }: SnackListItemProps) => {
       className="flex h-6 items-center justify-between gap-2.5 text-xl"
     >
       <div>
-        icon<span>빅파이</span>
+        icon<span>{snack.name}</span>
       </div>
       <hr className="flex w-1 flex-1"></hr>
-      <div>파이(달콤)</div>
+      <div>
+        {snack.tasteCodes.map((code) => (
+          <span key={code}>({TASTE_CODE_TO_NAME[code]})</span>
+        ))}
+        (달콤)
+      </div>
     </li>
   );
 };

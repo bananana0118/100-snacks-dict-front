@@ -1,9 +1,11 @@
+import { TASTE_CODE } from './../../constants/Tastes';
+
 export type SnackItem = {
   id: number;
   name: string;
   snackTypeCode: string;
   brandCode: string;
-  tasteCodes: string[];
+  tasteCodes: (keyof typeof TASTE_CODE)[];
   storeCodes: string[];
   price: number;
   snackImg: string;
