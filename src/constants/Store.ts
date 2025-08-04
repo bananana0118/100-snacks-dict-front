@@ -14,3 +14,10 @@ export const storeOptions: Option<Store>[] = [
   { value: Store.SevenEleven, label: '세븐일레븐' },
   { value: Store.Emart24, label: '이마트24' },
 ];
+
+export const storeCodeToName = {
+  BRD001: '롯데제과',
+  BRD002: '오리온',
+  BRD003: '크라운',
+  BRD004: '해태',
+};
