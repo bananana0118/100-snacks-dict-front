@@ -1,19 +1,28 @@
 'use client';
 import HomeTile from '@/components/molecules/HomeTile';
 import SnackListItem from '@/components/molecules/SnackListItem';
-import { useEffect } from 'react';
+import { getAllSnack, SnackItem } from '@/services/snack/sncakService';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+  //todo 추후 ssr/ssg로 전환해 유입늘리기
+  const [snacks, setSnacks] = useState<SnackItem[]>([]);
+
   const initiateMain = async () => {
-    const res = await fetch('http://localhost:3000/snack/');
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    const data = await res.json();
-    console.log(data);
+    const res = await getAllSnack();
+    if (res.status === 200) setSnacks(res.data);
+    console.log(res);
   };
 
   useEffect(() => {
     initiateMain();
   }, []);
+
+  if (snacks.length <= 0) {
+    console.log('...loading');
+    return <div>loading</div>;
+  }
+
   return (
     <div className="flex h-screen flex-col">
       <header>
@@ -29,8 +38,8 @@ export default function Home() {
           <section className="flex min-w-fit flex-1 flex-col">
             <p>6월 출시일 순</p>
             <ul className="flex flex-col gap-5">
-              {Array.from({ length: 21 }).map((_, idx) => (
-                <SnackListItem key={idx} />
+              {snacks.map((snack) => (
+                <SnackListItem key={snack.id} snack={snack} />
               ))}
             </ul>
           </section>

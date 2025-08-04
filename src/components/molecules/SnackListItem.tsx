@@ -1,11 +1,14 @@
+import { SnackItem } from '@/services/snack/sncakService';
+
 type SnackListItemProps = {
-  key: string | number;
+  snack: SnackItem;
 };
 
-const SnackListItem = ({ key }: SnackListItemProps) => {
+const SnackListItem = ({ snack }: SnackListItemProps) => {
+  const { id } = snack;
   return (
     <li
-      key={key}
+      key={id}
       className="flex h-6 items-center justify-between gap-2.5 text-xl"
     >
       <div>
