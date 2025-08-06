@@ -23,12 +23,9 @@ export default function Home() {
     initiateMain();
   }, []);
 
-  // snacks가 비어 있거나 selectedId가 null이면 로딩 UI
   if (snacks.length === 0 || selectedId === null) {
     return <div>loading...</div>;
   }
-
-  // 여기까지 통과하면 selectedId는 number, snacks도 non-empty
 
   const selectedSnack = snacks.find((s) => s.id === selectedId) ?? snacks[0];
 

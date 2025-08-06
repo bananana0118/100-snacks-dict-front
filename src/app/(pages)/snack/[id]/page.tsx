@@ -1,4 +1,11 @@
-export default function Page() {
+type PageProps = {
+  params: { id: string };
+  // searchParams?: { [key: string]: string | string[] }  // 쿼리스트링도 받고 싶다면
+};
+
+export default async function SnackDetailPage({ params }: PageProps) {
+  console.log(params.id);
+
   return (
     <main>
       <section className="flex flex-row">
