@@ -1,3 +1,5 @@
+import { getSnackFindOne } from '@/services/snack/sncakService';
+
 type PageProps = {
   params: { id: string };
   // searchParams?: { [key: string]: string | string[] }  // 쿼리스트링도 받고 싶다면
@@ -6,11 +8,8 @@ type PageProps = {
 export default async function SnackDetailPage({ params }: PageProps) {
   const { id } = await params;
 
-  const initalizeHandler = () => {
-    const
-  };
-  console.log(id);
-
+  const { data } = await getSnackFindOne(+id);
+  console.log(data);
   return (
     <main>
       <section className="flex flex-row">

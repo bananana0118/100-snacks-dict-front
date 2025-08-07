@@ -33,7 +33,9 @@ export const getAllSnack = async (): Promise<SnackListItemResponse> => {
   };
 };
 
-export const getOneSnack = async (id: number): Promise<SnackItemResponse> => {
+export const getSnackFindOne = async (
+  id: number,
+): Promise<SnackItemResponse> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/snack/${id}`);
 
   if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
