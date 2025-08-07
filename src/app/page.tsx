@@ -2,26 +2,32 @@
 import HomeTile from '@/components/molecules/HomeTile';
 import SnackListItem from '@/components/molecules/SnackListItem';
 import { getAllSnack, SnackItem } from '@/services/snack/sncakService';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
   //todo 추후 ssr/ssg로 전환해 유입늘리기
   const [snacks, setSnacks] = useState<SnackItem[]>([]);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
   const initiateMain = async () => {
     const res = await getAllSnack();
-    if (res.status === 200) setSnacks(res.data);
-    console.log(res);
+    if (res.status === 200) {
+      setSnacks(res.data);
+      setSelectedId(res.data[0].id); // 여기서 바로 안전하게 세팅
+    }
+    console.log(res.data);
   };
 
   useEffect(() => {
     initiateMain();
   }, []);
 
-  if (snacks.length <= 0) {
-    console.log('...loading');
-    return <div>loading</div>;
+  if (snacks.length === 0 || selectedId === null) {
+    return <div>loading...</div>;
   }
+
+  const selectedSnack = snacks.find((s) => s.id === selectedId) ?? snacks[0];
 
   return (
     <div className="flex h-screen flex-col">
@@ -39,7 +45,12 @@ export default function Home() {
             <p>6월 출시일 순</p>
             <ul className="flex flex-col gap-5">
               {snacks.map((snack) => (
-                <SnackListItem key={snack.id} snack={snack} />
+                <SnackListItem
+                  key={snack.id}
+                  snack={snack}
+                  isSelected={snack.id === selectedSnack.id}
+                  setSelected={setSelectedId}
+                />
               ))}
             </ul>
           </section>
@@ -54,7 +65,14 @@ export default function Home() {
               </p>
               <div>상세보기</div>
             </div>
-            <div className="h-[900px] w-[900px] bg-gray-600">이미지</div>
+            <figure className="relative h-[900px] w-[900px]">
+              <Image
+                src={selectedSnack.snackImg}
+                fill
+                style={{ objectFit: 'contain' }} // 비율 유지하며 박스 안에 맞추기
+                alt="snackImg"
+              ></Image>
+            </figure>
           </section>
         </section>
       </main>
