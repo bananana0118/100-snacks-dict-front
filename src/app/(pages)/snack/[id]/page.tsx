@@ -4,7 +4,8 @@ type PageProps = {
 };
 
 export default async function SnackDetailPage({ params }: PageProps) {
-  console.log(params.id);
+  const { id } = await params;
+  console.log(id);
 
   return (
     <main>
