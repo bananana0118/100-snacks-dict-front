@@ -5,6 +5,10 @@ type PageProps = {
 
 export default async function SnackDetailPage({ params }: PageProps) {
   const { id } = await params;
+
+  const initalizeHandler = () => {
+    const
+  };
   console.log(id);
 
   return (
