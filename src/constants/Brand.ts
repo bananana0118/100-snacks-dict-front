@@ -14,3 +14,10 @@ export const brandOptions: Option<Brand>[] = [
   { value: Brand.Crown, label: '크라운' },
   { value: Brand.HaeTae, label: '해태' },
 ];
+
+export const BRAND_CODE = {
+  BRD001: Brand.Lotte,
+  BRD002: Brand.Olion,
+  BRD003: Brand.Crown,
+  BRD004: Brand.HaeTae,
+};

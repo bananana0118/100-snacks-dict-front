@@ -1,10 +1,12 @@
+import { SNACK_CODE } from '@/constants/SnackCategory';
 import { TASTE_CODE } from './../../constants/Tastes';
+import { BRAND_CODE } from '@/constants/Brand';
 
 export type SnackItem = {
   id: number;
   name: string;
-  snackTypeCode: string;
-  brandCode: string;
+  snackTypeCode: keyof typeof SNACK_CODE;
+  brandCode: keyof typeof BRAND_CODE;
   tasteCodes: (keyof typeof TASTE_CODE)[];
   storeCodes: string[];
   price: number;
