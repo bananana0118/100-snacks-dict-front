@@ -1,4 +1,9 @@
+import { BRAND_CODE } from '@/constants/Brand';
+import { SNACK_CATEGORY_CODE_TO_NAME } from '@/constants/SnackCategory';
+import { TASTE_CODE_TO_NAME } from '@/constants/Tastes';
 import { getSnackFindOne } from '@/services/snack/sncakService';
+import { transpertSnackPriceRange } from '@/utils/snackUtils';
+import Image from 'next/image';
 
 type PageProps = {
   params: { id: string };
@@ -8,20 +13,30 @@ type PageProps = {
 export default async function SnackDetailPage({ params }: PageProps) {
   const { id } = await params;
 
-  const { data } = await getSnackFindOne(+id);
-  console.log(data);
+  const data = await getSnackFindOne(+id);
+  const snack = data.data;
+
   return (
     <main>
-      <section className="flex flex-row">
+      <section className="flex flex-row gap-3">
         <figure className="mb-4">
-          <div className="h-[300px] w-[300px] bg-gray-600">이미지</div>
-          <figcaption className="text-sm text-gray-500">젤리</figcaption>
+          <div className="relative h-[300px] w-[300px]">
+            <Image
+              fill
+              src={snack.snackImg}
+              alt="snackImg"
+              style={{ objectFit: 'contain' }}
+            ></Image>
+          </div>
+          <figcaption className="sr-only text-sm text-gray-500">
+            {SNACK_CATEGORY_CODE_TO_NAME[snack.snackTypeCode]}
+          </figcaption>
         </figure>
         <section>
           <header>
-            <h4>젤리</h4>
+            <h4> {SNACK_CATEGORY_CODE_TO_NAME[snack.snackTypeCode]}</h4>
             <div className="flex flex-row">
-              <h1>마이구미 복숭아</h1>
+              <h1>{snack.name}</h1>
               <button>좋아요 아이콘</button>
             </div>
           </header>
@@ -31,13 +46,17 @@ export default async function SnackDetailPage({ params }: PageProps) {
                 <dt id="brand-label" className="sr-only">
                   제조사
                 </dt>
-                <dd aria-labelledby="brand-label">오리온</dd>
+                <dd aria-labelledby="brand-label">
+                  {BRAND_CODE[snack.brandCode]}
+                </dd>
               </div>
               <div>
                 <dt id="price-label" className="sr-only">
                   가격
                 </dt>
-                <dd aria-labelledby="price-label">1000원대</dd>
+                <dd aria-labelledby="price-label">
+                  {transpertSnackPriceRange(snack.price)} 대
+                </dd>
               </div>
             </dl>
           </section>
@@ -55,16 +74,24 @@ export default async function SnackDetailPage({ params }: PageProps) {
                 </tr>
               </tbody>
             </table>
+          </section>
+          <section>
             <p>
-              출시일 <span>25.09.09</span>
+              출시일{' '}
+              <span>
+                {snack.releaseAt instanceof Date
+                  ? snack.releaseAt.toLocaleDateString()
+                  : snack.releaseAt}
+              </span>
             </p>
           </section>
           <section aria-labelledby="taste-tags">
             <ul className="flex gap-2">
-              <li className="rounded border px-2 py-1">상큼</li>
-              <li className="rounded border px-2 py-1">달콤</li>
-              <li className="rounded border px-2 py-1">짭짤</li>
-              <li className="rounded border px-2 py-1">매콤</li>
+              {snack.tasteCodes.map((code) => (
+                <li key={code} className="rounded border px-2 py-1">
+                  {TASTE_CODE_TO_NAME[code]}
+                </li>
+              ))}
             </ul>
           </section>
         </section>

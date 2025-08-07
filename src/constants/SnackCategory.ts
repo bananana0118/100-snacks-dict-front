@@ -19,6 +19,15 @@ export const snackOptions: Option<SnackCategory>[] = [
   { value: SnackCategory.CandyGum, label: '캔디&껌' },
 ];
 
+export const SNACK_CODE = {
+  SNK001: SnackCategory.BagSnack,
+  SNK002: SnackCategory.CrunchySnack,
+  SNK003: SnackCategory.SoftSnack,
+  SNK004: SnackCategory.Chocolate,
+  SNK005: SnackCategory.Jelly,
+  SNK006: SnackCategory.CandyGum,
+};
+
 export const SNACK_CATEGORY_CODE_TO_NAME = {
   SNK001: '봉지과자',
   SNK002: '바삭과자(비스킷)',
