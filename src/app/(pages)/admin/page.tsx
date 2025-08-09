@@ -92,16 +92,17 @@ const Page = () => {
               </legend>
 
               <div className="flex w-full flex-row gap-2">
-                {TastesOptions.map((opt) => {
-                  const isChecked = selected.includes(opt.value);
+                {Object.values(Tastes).map((code) => {
+                  const opt = TastesOptions[code];
+                  const isChecked = selected.includes(code);
                   const isDisabled = !isChecked && selected.length >= 4;
                   return (
                     <CheckBoxWithLabel
-                      key={opt.value}
+                      key={code}
                       isChecked={isChecked}
                       isDisabled={isDisabled}
-                      onChangeHandler={() => toggleFlavor(opt.value)}
-                      value={opt.value}
+                      onChangeHandler={() => toggleFlavor(code)}
+                      value={code}
                       name="flavor"
                       label={opt.label}
                     ></CheckBoxWithLabel>

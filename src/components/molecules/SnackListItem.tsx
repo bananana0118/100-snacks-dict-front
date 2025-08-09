@@ -21,12 +21,15 @@ const SnackListItem = ({
     setSelected(id);
   };
   return (
-    <Link href={`/snack/${[id]}`}>
-      <li className="flex h-6 items-center justify-between gap-2.5 text-xl">
-        <div
-          className="flex flex-row items-center gap-2.5"
-          onMouseEnter={onChangeHandler}
-        >
+    <li
+      className="flex h-6 w-full items-center justify-between gap-2.5 text-xl"
+      onMouseEnter={onChangeHandler}
+    >
+      <Link
+        href={`/snack/${[id]}`}
+        className="flex w-full flex-row items-center gap-2.5"
+      >
+        <div className="flex flex-row items-center gap-2.5">
           <Circle size={16} fill={isSelected ? '#000' : '#fff'} />
           <span>{snack.name}</span>
         </div>
@@ -36,8 +39,8 @@ const SnackListItem = ({
             <span key={code}>({TASTE_CODE_TO_NAME[code]})</span>
           ))}
         </div>
-      </li>
-    </Link>
+      </Link>
+    </li>
   );
 };
 

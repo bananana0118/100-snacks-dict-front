@@ -1,8 +1,9 @@
+import { SnackTasteTagList } from '@/components/molecules/SnackTasteTagList';
 import { BRAND_CODE } from '@/constants/Brand';
 import { SNACK_CATEGORY_CODE_TO_NAME } from '@/constants/SnackCategory';
-import { TASTE_CODE_TO_NAME } from '@/constants/Tastes';
 import { getSnackFindOne } from '@/services/snack/sncakService';
 import { transpertSnackPriceRange } from '@/utils/snackUtils';
+import { Heart } from 'lucide-react';
 import Image from 'next/image';
 
 type PageProps = {
@@ -18,9 +19,9 @@ export default async function SnackDetailPage({ params }: PageProps) {
 
   return (
     <main>
-      <section className="flex flex-row gap-3">
+      <section className="flex flex-row gap-14">
         <figure className="mb-4">
-          <div className="relative h-[300px] w-[300px]">
+          <div className="relative h-[300px] w-[300px] overflow-hidden rounded-xl">
             <Image
               fill
               src={snack.snackImg}
@@ -32,21 +33,23 @@ export default async function SnackDetailPage({ params }: PageProps) {
             {SNACK_CATEGORY_CODE_TO_NAME[snack.snackTypeCode]}
           </figcaption>
         </figure>
-        <section>
-          <header>
-            <h4> {SNACK_CATEGORY_CODE_TO_NAME[snack.snackTypeCode]}</h4>
+        <section className="text-[#2E1515]">
+          <header className="mb-5 flex flex-col gap-5.5">
+            <h4 className="">
+              {SNACK_CATEGORY_CODE_TO_NAME[snack.snackTypeCode]}
+            </h4>
             <div className="flex flex-row">
-              <h1>{snack.name}</h1>
-              <button>좋아요 아이콘</button>
+              <h1 className="mr-12 text-2xl font-semibold">{snack.name}</h1>
+              <Heart size={24} />
             </div>
           </header>
-          <section>
+          <section className="mb-4.5">
             <dl className="grid grid-cols-1 gap-x-4">
-              <div>
+              <div className="mb-4">
                 <dt id="brand-label" className="sr-only">
                   제조사
                 </dt>
-                <dd aria-labelledby="brand-label">
+                <dd aria-labelledby="brand-label text-[#2E1515]">
                   {BRAND_CODE[snack.brandCode]}
                 </dd>
               </div>
@@ -55,16 +58,25 @@ export default async function SnackDetailPage({ params }: PageProps) {
                   가격
                 </dt>
                 <dd aria-labelledby="price-label">
-                  {transpertSnackPriceRange(snack.price)} 대
+                  <span className="text-xl font-semibold">
+                    {transpertSnackPriceRange(snack.price)}
+                  </span>
+                  원 대
                 </dd>
               </div>
             </dl>
           </section>
-          <section className="flex flex-row">
-            <h4>용량 칼로리</h4>
-            <table>
+          <section>
+            <table className="border-separate border-spacing-x-0 border-spacing-y-[12px] [&>tbody>tr>td+td]:pl-[18px] [&>tbody>tr>td:first-of-type]:pl-[18px]">
               <tbody>
                 <tr>
+                  <th
+                    scope="rowgroup"
+                    rowSpan={2} // 데이터 줄 수만큼 지정
+                    className="pr-4 text-left align-top font-normal"
+                  >
+                    용량/칼로리
+                  </th>
                   <td>100g</td>
                   <td>200kcal</td>
                 </tr>
@@ -75,24 +87,18 @@ export default async function SnackDetailPage({ params }: PageProps) {
               </tbody>
             </table>
           </section>
-          <section>
+          <section className="mb-5">
             <p>
-              출시일{' '}
-              <span>
+              출시일
+              <span className="pl-2">
                 {snack.releaseAt instanceof Date
                   ? snack.releaseAt.toLocaleDateString()
-                  : snack.releaseAt}
+                  : '25.09.09'}
               </span>
             </p>
           </section>
           <section aria-labelledby="taste-tags">
-            <ul className="flex gap-2">
-              {snack.tasteCodes.map((code) => (
-                <li key={code} className="rounded border px-2 py-1">
-                  {TASTE_CODE_TO_NAME[code]}
-                </li>
-              ))}
-            </ul>
+            <SnackTasteTagList tasteCodes={snack.tasteCodes} />
           </section>
         </section>
       </section>
