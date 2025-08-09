@@ -2,10 +2,10 @@ import { Option } from '@/app/(pages)/admin/page';
 
 // Store.ts
 export enum Store {
-  CU = 'CU', // 봉지과자
-  GS25 = 'GS25', // 바삭과자(비스킷)
-  SevenEleven = '세븐일레븐', // 폭신과자(파이)
-  Emart24 = '이마트24', // 초콜릿
+  CU = 'STR001',
+  GS25 = 'STR002',
+  SevenEleven = 'STR003',
+  Emart24 = 'STR004',
 }
 
 export const storeOptions: Option<Store>[] = [

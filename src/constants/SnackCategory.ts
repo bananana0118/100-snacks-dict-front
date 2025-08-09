@@ -2,12 +2,12 @@ import { Option } from '@/app/(pages)/admin/page';
 
 // SnackCategory.ts
 export enum SnackCategory {
-  BagSnack = 'bagSnack', // 봉지과자
-  CrunchySnack = 'crunchySnack', // 바삭과자(비스킷)
-  SoftSnack = 'softSnack', // 폭신과자(파이)
-  Chocolate = 'chocolate', // 초콜릿
-  Jelly = 'jelly', // 젤리
-  CandyGum = 'candyGum', // 캔디&껌
+  BagSnack = 'SNK001', // 봉지과자
+  CrunchySnack = 'SNK002', // 바삭과자(비스킷)
+  SoftSnack = 'SNK003', // 폭신과자(파이)
+  Chocolate = 'SNK004', // 초콜릿
+  Jelly = 'SNK005', // 젤리
+  CandyGum = 'SNK006', // 캔디&껌
 }
 
 export const snackOptions: Option<SnackCategory>[] = [
