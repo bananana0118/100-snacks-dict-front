@@ -1,7 +1,11 @@
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 
-export default function ImageUploader() {
+type ImageUploaderProps = {
+  name: string;
+};
+
+export default function ImageUploader({ name }: ImageUploaderProps) {
   // 파일 input ref
   const inputRef = useRef<HTMLInputElement>(null);
   // 선택된 이미지 URL (미리보기)
@@ -28,7 +32,7 @@ export default function ImageUploader() {
         type="file"
         accept="image/*"
         ref={inputRef}
-        name="image"
+        name={name}
         className="hidden"
         onChange={handleFileChange}
       />

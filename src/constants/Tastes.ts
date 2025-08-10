@@ -1,4 +1,4 @@
-/** 1) Flavor enum & options 정의 */
+/** 1) taste enum & options 정의 */
 export enum Tastes {
   Sweet = 'TST001', // 달콤
   Tangy = 'TST002', // 상큼

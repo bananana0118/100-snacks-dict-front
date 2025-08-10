@@ -19,11 +19,11 @@ export interface Option<T extends string> {
 const Page = () => {
   const [selected, setSelected] = useState<Tastes[]>([]);
 
-  const toggleFlavor = (flavor: Tastes) => {
-    if (selected.includes(flavor)) {
-      setSelected(selected.filter((f) => f !== flavor));
+  const toggletaste = (taste: Tastes) => {
+    if (selected.includes(taste)) {
+      setSelected(selected.filter((f) => f !== taste));
     } else if (selected.length < 4) {
-      setSelected([...selected, flavor]);
+      setSelected([...selected, taste]);
     }
   };
 
@@ -34,19 +34,21 @@ const Page = () => {
 
     // 여기서 e.currentTarget이 form 엘리먼트
     const form = e.currentTarget;
-    const formData = new FormData(form);
+    const fd = new FormData(form);
 
     // 예시: 모든 필드 찍어보기
-    for (const [key, val] of formData.entries()) {
+    for (const [key, val] of fd.entries()) {
       console.log(key, val);
     }
 
-    // const res = await fetch('/api/snack', {
-    //   method: 'POST',
-    //   body: fd,
-    // });
-    // const json = await res.json();
-    // console.log('서버 응답:', json);
+    const res = await fetch('http://localhost:8080/snack', {
+      method: 'POST',
+      body: fd,
+    });
+
+    console.log(fd);
+    const json = await res.json();
+    console.log('서버 응답:', json);
   };
 
   return (
@@ -57,20 +59,21 @@ const Page = () => {
             과자등록
           </p>
           <form className="flex flex-col gap-6" onSubmit={onSubmitHandler}>
-            <ImageUploader></ImageUploader>
+            <ImageUploader name="snackImg"></ImageUploader>
             <Field className="flex flex-col">
               <Label className="pb-2.5 text-lg font-semibold">1. 과자명</Label>
               <Input
                 placeholder="과자명을 입력해주세요"
+                name="name"
                 className="h-11 border p-2.5 data-focus:bg-blue-100 data-hover:shadow"
               ></Input>
             </Field>
             <SelectList
               label="2. 과자종류"
               options={snackOptions}
-              name="snackCategory"
+              name="type"
               placeholder="카테고리를 선택해주세요"
-              key="snackCategory"
+              key="type"
             ></SelectList>
             <SelectList
               label="3. 제조사"
@@ -101,9 +104,9 @@ const Page = () => {
                       key={code}
                       isChecked={isChecked}
                       isDisabled={isDisabled}
-                      onChangeHandler={() => toggleFlavor(code)}
+                      onChangeHandler={() => toggletaste(code)}
                       value={code}
-                      name="flavor"
+                      name="taste"
                       label={opt.label}
                     ></CheckBoxWithLabel>
                   );
