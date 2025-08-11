@@ -71,16 +71,16 @@ const Page = () => {
             <SelectList
               label="2. 과자종류"
               options={snackOptions}
-              name="type"
+              name="snackTypeCode"
               placeholder="카테고리를 선택해주세요"
-              key="type"
+              key="snackTypeCode"
             ></SelectList>
             <SelectList
               label="3. 제조사"
               options={brandOptions}
-              name="brand"
+              name="brandCode"
               placeholder="제조사를 선택해주세요"
-              key="brand"
+              key="brandCode"
             ></SelectList>
             <SelectList
               label="4. 가격대"
@@ -106,7 +106,7 @@ const Page = () => {
                       isDisabled={isDisabled}
                       onChangeHandler={() => toggletaste(code)}
                       value={code}
-                      name="taste"
+                      name="tasteCodes"
                       label={opt.label}
                     ></CheckBoxWithLabel>
                   );
@@ -116,9 +116,9 @@ const Page = () => {
             <SelectList
               label="6. 판매처"
               options={storeOptions}
-              name="store"
+              name="storeCodes"
               placeholder="판매처를 선택해주세요"
-              key="store"
+              key="storeCodes"
             ></SelectList>
             <Field>
               <Label className={`pb-2.5 text-lg font-semibold`}>
@@ -136,8 +136,8 @@ const Page = () => {
                 <Input
                   placeholder="용량"
                   type="number"
-                  name="weight"
-                  key="weight"
+                  name="capacity"
+                  key="capacity"
                   className="h-11 w-full border p-2.5 data-focus:bg-blue-100 data-hover:shadow"
                 ></Input>
               </div>

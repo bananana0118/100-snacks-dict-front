@@ -1,5 +1,5 @@
 import { SnackTasteTagList } from '@/components/molecules/SnackTasteTagList';
-import { BRAND_CODE } from '@/constants/Brand';
+import { SNACK_BRAND_CODE_TO_NAME } from '@/constants/Brand';
 import { SNACK_CATEGORY_CODE_TO_NAME } from '@/constants/SnackCategory';
 import { getSnackFindOne } from '@/services/snack/sncakService';
 import { transpertSnackPriceRange } from '@/utils/snackUtils';
@@ -50,7 +50,7 @@ export default async function SnackDetailPage({ params }: PageProps) {
                   제조사
                 </dt>
                 <dd aria-labelledby="brand-label text-[#2E1515]">
-                  {BRAND_CODE[snack.brandCode]}
+                  {SNACK_BRAND_CODE_TO_NAME[snack.brandCode]}
                 </dd>
               </div>
               <div>
