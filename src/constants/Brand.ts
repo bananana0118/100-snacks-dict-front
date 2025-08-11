@@ -21,3 +21,10 @@ export const BRAND_CODE = {
   BRD003: Brand.Crown,
   BRD004: Brand.HaeTae,
 };
+
+export const SNACK_BRAND_CODE_TO_NAME = {
+  BRD001: '롯데제과',
+  BRD002: '오리온',
+  BRD003: '크라운',
+  BRD004: '해태',
+};
