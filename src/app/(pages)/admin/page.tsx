@@ -3,10 +3,10 @@ import CheckBoxWithLabel from '@/components/molecules/CheckBoxWithLabel';
 import ImageUploader from '@/components/molecules/ImageUploader';
 import SelectList from '@/components/molecules/SelectList';
 import { brandOptions } from '@/constants/Brand';
-import { priceRangeOptions } from '@/constants/PriceRange';
 import { snackOptions } from '@/constants/SnackCategory';
 import { storeOptions } from '@/constants/Store';
 import { Tastes, TastesOptions } from '@/constants/Tastes';
+import { formDataToJson } from '@/utils/snackUtils';
 import { Button, Field, Input, Label } from '@headlessui/react';
 import { useState } from 'react';
 
@@ -36,14 +36,76 @@ const Page = () => {
     const form = e.currentTarget;
     const fd = new FormData(form);
 
+    const fileEntry = fd.get('snackImg');
+    const file = fileEntry instanceof File ? fileEntry : null;
+
+    let snackImgKey: string | undefined;
+
     // 예시: 모든 필드 찍어보기
     for (const [key, val] of fd.entries()) {
       console.log(key, val);
     }
 
+    if (file && file.size > 0) {
+      const presignRes = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/storage/presign`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+
+          body: JSON.stringify({
+            fileName: file.name,
+            fileType: file.type,
+          }),
+        },
+      );
+      if (!presignRes.ok) {
+        console.error('presign failed', await presignRes.text());
+        alert('이미지 업로드 준비(presign)에 실패했습니다.');
+        return;
+      }
+
+      const { data } = await presignRes.json();
+      const { url, key } = data;
+      snackImgKey = key;
+
+      const putRes = await fetch(url, {
+        method: 'PUT',
+        headers: { 'Content-Type': file.type },
+        body: file,
+      });
+
+      if (!putRes.ok) {
+        console.error('S3 PUT failed', putRes.status, await putRes.text());
+        alert('이미지 업로드에 실패했습니다.');
+        return;
+      }
+    }
+
+    fd.delete('snackImg');
+
+    // S3에 업로드된 key 넣기
+    if (snackImgKey) fd.append('snackImg', snackImgKey ?? null);
+
+    const raw = formDataToJson(fd, ['tasteCodes', 'storeCodes']);
+
+    const payload = {
+      name: raw.name ?? '',
+      snackTypeCode: raw.snackTypeCode ?? '',
+      brandCode: raw.brandCode ?? '',
+      price: raw.price ? Number(raw.price) : undefined,
+      kcal: raw.kcal ? Number(raw.kcal) : undefined,
+      capacity: raw.capacity ? Number(raw.capacity) : undefined,
+      releaseAt: raw.releaseAt || undefined,
+      tasteCodes: raw.tasteCodes ?? [],
+      storeCodes: raw.storeCodes ?? [],
+      snackImg: snackImgKey, // presign key
+    };
+
     const res = await fetch('http://localhost:8080/snack', {
       method: 'POST',
-      body: fd,
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(payload),
     });
 
     console.log(fd);
@@ -82,13 +144,17 @@ const Page = () => {
               placeholder="제조사를 선택해주세요"
               key="brandCode"
             ></SelectList>
-            <SelectList
-              label="4. 가격대"
-              options={priceRangeOptions}
-              name="price"
-              placeholder="가격대를 선택해주세요"
-              key="price"
-            ></SelectList>
+
+            <Field className="flex flex-col">
+              <Label className="pb-2.5 text-lg font-semibold">4. 가격대</Label>
+              <Input
+                name="price"
+                placeholder="가격대를 입력해주세요"
+                key="price"
+                type="number"
+                className="h-11 border p-2.5 data-focus:bg-blue-100 data-hover:shadow"
+              ></Input>
+            </Field>
             <fieldset>
               <legend className="pb-2.5 text-lg font-semibold">
                 5. 맛 (최대 4개까지 선택 가능)
