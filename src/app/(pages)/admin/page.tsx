@@ -41,11 +41,6 @@ const Page = () => {
 
     let snackImgKey: string | undefined;
 
-    // 예시: 모든 필드 찍어보기
-    for (const [key, val] of fd.entries()) {
-      console.log(key, val);
-    }
-
     if (file && file.size > 0) {
       const presignRes = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/storage/presign`,
