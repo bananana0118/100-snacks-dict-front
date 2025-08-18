@@ -97,7 +97,7 @@ const Page = () => {
       snackImg: snackImgKey, // presign key
     };
 
-    const res = await fetch('http://localhost:8080/snack', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/snack`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(payload),
