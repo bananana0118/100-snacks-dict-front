@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={pretendard.className}>
       <body
-        className={`${geistSans.variable} mx-auto max-w-[1980px] antialiased`}
+        className={`${pretendard.variable} mx-auto max-w-[1980px] antialiased`}
       >
         {children}
       </body>

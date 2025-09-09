@@ -3,9 +3,7 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   /* config options here */
   webpack: (config) => {
-    const fileLoaderRule = config.module.rules.find((rule: any) =>
-      rule.test?.test?.('.svg'),
-    );
+    const fileLoaderRule = config.module.rules.find((rule: any) => rule.test?.test?.('.svg'));
 
     if (fileLoaderRule) {
       // .svg 파일을 기존 로더에서 제외
