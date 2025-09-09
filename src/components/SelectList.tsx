@@ -1,4 +1,4 @@
-import { Option } from '@/app/(pages)/admin/page';
+import { Option } from '@/app/constants/snack_types';
 import { Field, Label, Select } from '@headlessui/react';
 
 type SelectListProps<T extends string> = {
@@ -24,7 +24,7 @@ const SelectList = <T extends string>({
       >
         {placeholder && (
           <option value="" disabled hidden>
-            {placeholder}
+            카테고리 선택
           </option>
         )}
         {options.map((opt) => (

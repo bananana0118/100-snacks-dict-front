@@ -1,3 +1,4 @@
+
 'use client';
 import CheckBoxWithLabel from '@/components/molecules/CheckBoxWithLabel';
 import ImageUploader from '@/components/molecules/ImageUploader';
@@ -27,9 +28,7 @@ const Page = () => {
     }
   };
 
-  const onSubmitHandler: React.FormEventHandler<HTMLFormElement> = async (
-    e,
-  ) => {
+  const onSubmitHandler: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
     // 여기서 e.currentTarget이 form 엘리먼트
@@ -108,6 +107,8 @@ const Page = () => {
     console.log('서버 응답:', json);
   };
 
+
+const page = () => {
   return (
     <div>
       <main className="flex flex-col items-center justify-center px-[50px] pt-[24px] pb-[50px]">
@@ -125,6 +126,7 @@ const Page = () => {
                 className="h-11 border p-2.5 data-focus:bg-blue-100 data-hover:shadow"
               ></Input>
             </Field>
+
             <SelectList
               label="2. 과자종류"
               options={snackOptions}
@@ -156,18 +158,17 @@ const Page = () => {
               </legend>
 
               <div className="flex w-full flex-row gap-2">
-                {Object.values(Tastes).map((code) => {
-                  const opt = TastesOptions[code];
-                  const isChecked = selected.includes(code);
+                {TastesOptions.map((opt) => {
+                  const isChecked = selected.includes(opt.value);
                   const isDisabled = !isChecked && selected.length >= 4;
                   return (
                     <CheckBoxWithLabel
-                      key={code}
+                      key={opt.value}
                       isChecked={isChecked}
                       isDisabled={isDisabled}
-                      onChangeHandler={() => toggletaste(code)}
-                      value={code}
-                      name="tasteCodes"
+                      onChangeHandler={() => toggleFlavor(opt.value)}
+                      value={opt.value}
+                      name="flavor"
                       label={opt.label}
                     ></CheckBoxWithLabel>
                   );
@@ -182,9 +183,7 @@ const Page = () => {
               key="storeCodes"
             ></SelectList>
             <Field>
-              <Label className={`pb-2.5 text-lg font-semibold`}>
-                7. 총칼로리(kcal) / 용량(g)
-              </Label>
+              <Label className={`pb-2.5 text-lg font-semibold`}>7. 총칼로리(kcal) / 용량(g)</Label>
               <div className="flex w-full flex-row items-center justify-center">
                 <Input
                   placeholder="총칼로리"
@@ -202,13 +201,8 @@ const Page = () => {
                   className="h-11 w-full border p-2.5 data-focus:bg-blue-100 data-hover:shadow"
                 ></Input>
               </div>
+
             </Field>
-            <Button
-              type="submit"
-              className="h-15 w-full cursor-pointer bg-[#2E1515] px-2.5 py-2.5 text-xl font-semibold text-white"
-            >
-              등록
-            </Button>
           </form>
         </section>
       </main>
@@ -216,4 +210,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default page;
