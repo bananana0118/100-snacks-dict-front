@@ -1,5 +1,4 @@
-import { Option } from '@/app/(pages)/admin/page';
-
+import { Option } from '@/app/constants/snack_types';
 // SnackCategory.ts
 export enum SnackCategory {
   BagSnack = 'SNK001', // 봉지과자

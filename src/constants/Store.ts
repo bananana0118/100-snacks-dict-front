@@ -1,5 +1,4 @@
-import { Option } from '@/app/(pages)/admin/page';
-
+import { Option } from '@/app/constants/snack_types';
 // Store.ts
 export enum Store {
   CU = 'STR001',

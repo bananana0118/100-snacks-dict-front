@@ -15,14 +15,14 @@ export type TasteOption = {
   textColor: `#${string}`;
 };
 
-export const TASTE_LIST = [
+export const TASTE_LIST: TasteOption[] = [
   { value: Tastes.Sweet, label: '달콤', bgColor: '#FFE5F0', textColor: '#FF005E' },
   { value: Tastes.Tangy, label: '상큼', bgColor: '#FFFF47', textColor: '#77A61A' },
   { value: Tastes.Savory, label: '짭짤', bgColor: '#A8EDF9', textColor: '#097799' },
   { value: Tastes.Spicy, label: '매콤', bgColor: '#FF0000', textColor: '#FFFFFF' },
   { value: Tastes.Bitter, label: '쌉싸름', bgColor: '#7A3621', textColor: '#FFC09A' },
   { value: Tastes.Greasy, label: '느끼함', bgColor: '#F0F0F0', textColor: '#777777' },
-] as const satisfies readonly TasteOption[];
+];
 
 /** 2) Taste 코드와 이름 매핑 */
 export const TASTE_CODE_TO_NAME = {
@@ -33,3 +33,7 @@ export const TASTE_CODE_TO_NAME = {
   TST005: '쌉싸름',
   TST006: '느끼함',
 };
+
+export const TASTE_BY_VALUE: Record<Tastes, TasteOption> = Object.fromEntries(
+  TASTE_LIST.map((o) => [o.value, o]),
+) as Record<Tastes, TasteOption>;

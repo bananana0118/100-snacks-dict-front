@@ -1,4 +1,4 @@
-import { Tastes, TastesOptions } from '@/constants/Tastes';
+import { TASTE_BY_VALUE, Tastes } from '@/constants/Tastes';
 
 type SnackTasteTagListProps = {
   tasteCodes: Tastes[];
@@ -8,7 +8,7 @@ export const SnackTasteTagList = ({ tasteCodes }: SnackTasteTagListProps) => {
   return (
     <ul className="flex flex-row gap-2.5 text-xs">
       {tasteCodes.map((taste) => {
-        const tasteOption = TastesOptions[taste];
+        const tasteOption = TASTE_BY_VALUE[taste];
         return (
           <li
             key={taste}

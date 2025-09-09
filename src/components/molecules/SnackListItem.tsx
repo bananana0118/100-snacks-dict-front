@@ -10,11 +10,7 @@ type SnackListItemProps = {
   setSelected: Dispatch<SetStateAction<number | null>>;
 };
 
-const SnackListItem = ({
-  snack,
-  setSelected,
-  isSelected,
-}: SnackListItemProps) => {
+const SnackListItem = ({ snack, setSelected, isSelected }: SnackListItemProps) => {
   const { id } = snack;
 
   const onChangeHandler = () => {
@@ -25,10 +21,7 @@ const SnackListItem = ({
       className="flex h-6 w-full items-center justify-between gap-2.5 text-xl"
       onMouseEnter={onChangeHandler}
     >
-      <Link
-        href={`/snack/${[id]}`}
-        className="flex w-full flex-row items-center gap-2.5"
-      >
+      <Link href={`/snack/${[id]}`} className="flex w-full flex-row items-center gap-2.5">
         <div className="flex flex-row items-center gap-2.5">
           <Circle size={16} fill={isSelected ? '#000' : '#fff'} />
           <span>{snack.name}</span>

@@ -7,7 +7,7 @@ import { Heart } from 'lucide-react';
 import Image from 'next/image';
 
 type PageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
   // searchParams?: { [key: string]: string | string[] }  // 쿼리스트링도 받고 싶다면
 };
 
