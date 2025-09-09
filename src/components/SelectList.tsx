@@ -24,7 +24,7 @@ const SelectList = <T extends string>({
       >
         {placeholder && (
           <option value="" disabled hidden>
-            {placeholder}
+            카테고리 선택
           </option>
         )}
         {options.map((opt) => (
