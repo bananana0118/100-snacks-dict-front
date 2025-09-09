@@ -27,9 +27,7 @@ const Page = () => {
     }
   };
 
-  const onSubmitHandler: React.FormEventHandler<HTMLFormElement> = async (
-    e,
-  ) => {
+  const onSubmitHandler: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
     // 여기서 e.currentTarget이 form 엘리먼트
@@ -117,9 +115,7 @@ const Page = () => {
               key="store"
             ></SelectList>
             <Field>
-              <Label className={`pb-2.5 text-lg font-semibold`}>
-                7. 총칼로리(kcal) / 용량(g)
-              </Label>
+              <Label className={`pb-2.5 text-lg font-semibold`}>7. 총칼로리(kcal) / 용량(g)</Label>
               <div className="flex w-full flex-row items-center justify-center">
                 <Input
                   placeholder="총칼로리"
