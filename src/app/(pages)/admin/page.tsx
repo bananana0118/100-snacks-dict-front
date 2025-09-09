@@ -4,9 +4,13 @@ import { Field, Input, Label, Select } from '@headlessui/react';
 const page = () => {
   return (
     <div>
-      <main className="flex items-center justify-center">
-        <section className="min-h-screen w-4/12 bg-amber-100">
-          <form className="flex flex-col gap-6">
+      <main className="flex flex-col items-center justify-center px-[50px] pt-[24px] pb-[50px]">
+        <section className="min-h-screen w-[420px]">
+          <p className="mb-2.5 flex items-center justify-center text-[28px] font-semibold">
+            과자등록
+          </p>
+          <form className="flex flex-col gap-6" onSubmit={onSubmitHandler}>
+            <ImageUploader></ImageUploader>
             <Field className="flex flex-col">
               <Label className="pb-2.5 text-lg font-semibold">1. 과자명</Label>
               <Input
@@ -14,23 +18,86 @@ const page = () => {
                 className="h-11 border p-2.5 data-focus:bg-blue-100 data-hover:shadow"
               ></Input>
             </Field>
-            <Field className="flex flex-col">
-              <Label className="pb-2.5 text-lg font-semibold">1. 과자명</Label>
-              <Select
-                name="category"
-                defaultValue=""
-                className="h-11 border p-2.5 data-focus:bg-blue-100 data-hover:shadow"
-              >
-                <option value="" disabled hidden>
-                  카테고리 선택
-                </option>
-                {snackOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </Select>
+            <SelectList
+              label="2. 과자종류"
+              options={snackOptions}
+              name="snackCategory"
+              placeholder="카테고리를 선택해주세요"
+              key="snackCategory"
+            ></SelectList>
+            <SelectList
+              label="3. 제조사"
+              options={brandOptions}
+              name="brand"
+              placeholder="제조사를 선택해주세요"
+              key="brand"
+            ></SelectList>
+            <SelectList
+              label="4. 가격대"
+              options={priceRangeOptions}
+              name="price"
+              placeholder="가격대를 선택해주세요"
+              key="price"
+            ></SelectList>
+            <fieldset>
+              <legend className="pb-2.5 text-lg font-semibold">
+                5. 맛 (최대 4개까지 선택 가능)
+              </legend>
+
+              <div className="flex w-full flex-row gap-2">
+                {Object.values(Tastes).map((code) => {
+                  const opt = TastesOptions[code];
+                  const isChecked = selected.includes(code);
+                  const isDisabled = !isChecked && selected.length >= 4;
+                  return (
+                    <CheckBoxWithLabel
+                      key={code}
+                      isChecked={isChecked}
+                      isDisabled={isDisabled}
+                      onChangeHandler={() => toggleFlavor(code)}
+                      value={code}
+                      name="flavor"
+                      label={opt.label}
+                    ></CheckBoxWithLabel>
+                  );
+                })}
+              </div>
+            </fieldset>
+            <SelectList
+              label="6. 판매처"
+              options={storeOptions}
+              name="store"
+              placeholder="판매처를 선택해주세요"
+              key="store"
+            ></SelectList>
+            <Field>
+              <Label className={`pb-2.5 text-lg font-semibold`}>
+                7. 총칼로리(kcal) / 용량(g)
+              </Label>
+              <div className="flex w-full flex-row items-center justify-center">
+                <Input
+                  placeholder="총칼로리"
+                  type="number"
+                  name="kcal"
+                  key="kcal"
+                  className="h-11 w-full border p-2.5 data-focus:bg-blue-100 data-hover:shadow"
+                ></Input>
+                <span className="mx-3 text-[36px] font-extralight">/</span>
+                <Input
+                  placeholder="용량"
+                  type="number"
+                  name="weight"
+                  key="weight"
+                  className="h-11 w-full border p-2.5 data-focus:bg-blue-100 data-hover:shadow"
+                ></Input>
+              </div>
             </Field>
+            <Button
+              type="submit"
+              className="h-15 w-full cursor-pointer bg-[#2E1515] px-2.5 py-2.5 text-xl font-semibold text-white"
+            >
+              등록
+            </Button>
           </form>
         </section>
       </main>
@@ -38,4 +105,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

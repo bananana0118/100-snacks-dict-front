@@ -15,7 +15,9 @@ const nextConfig: NextConfig = {
   },
   /* config options here */
   webpack: (config) => {
-    const fileLoaderRule = config.module.rules.find((rule: any) => rule.test?.test?.('.svg'));
+    const fileLoaderRule = config.module.rules.find((rule: any) =>
+      rule.test?.test?.('.svg'),
+    );
 
     if (fileLoaderRule) {
       // .svg 파일을 기존 로더에서 제외
@@ -41,15 +43,7 @@ const nextConfig: NextConfig = {
   },
   reactStrictMode: false,
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'nng-phinf.pstatic.net',
-        port: '',
-        pathname: '/**',
-        search: '',
-      },
-    ],
+    domains: ['phinf.pstatic.net', 'picsum.photos'],
   },
 };
 
