@@ -1,4 +1,4 @@
-import { Option } from '@/app/(pages)/admin/page';
+import { Option } from '@/app/constants/snack_types';
 import { Field, Label, Select } from '@headlessui/react';
 
 type SelectListProps<T extends string> = {

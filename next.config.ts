@@ -1,6 +1,18 @@
 import type { NextConfig } from 'next';
 
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig: NextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: isProd
+          ? `${process.env.NEXT_PUBLIC_API_URL}/:path*`
+          : 'http://localhost:4000/:path*',
+      },
+    ];
+  },
   /* config options here */
   webpack: (config) => {
     const fileLoaderRule = config.module.rules.find((rule: any) => rule.test?.test?.('.svg'));
@@ -27,7 +39,6 @@ const nextConfig: NextConfig = {
     fileLoaderRule.exclude = /\.svg$/i;
     return config;
   },
-  devtool: process.env.NODE_ENV === 'production' ? false : 'source-map',
   reactStrictMode: false,
   images: {
     remotePatterns: [
