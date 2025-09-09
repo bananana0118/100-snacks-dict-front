@@ -58,6 +58,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  exclude: ['commitlint.config.ts', '.next', 'node_modules'],
 };
 
 export default nextConfig;
