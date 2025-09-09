@@ -1,4 +1,3 @@
-
 'use client';
 import CheckBoxWithLabel from '@/components/molecules/CheckBoxWithLabel';
 import ImageUploader from '@/components/molecules/ImageUploader';
@@ -6,18 +5,12 @@ import SelectList from '@/components/molecules/SelectList';
 import { brandOptions } from '@/constants/Brand';
 import { snackOptions } from '@/constants/SnackCategory';
 import { storeOptions } from '@/constants/Store';
-import { Tastes, TastesOptions } from '@/constants/Tastes';
+import { TASTE_LIST, Tastes } from '@/constants/Tastes';
 import { formDataToJson } from '@/utils/snackUtils';
-import { Button, Field, Input, Label } from '@headlessui/react';
+import { Field, Input, Label } from '@headlessui/react';
 import { useState } from 'react';
 
-// types.ts
-export interface Option<T extends string> {
-  value: T;
-  label: string;
-}
-
-const Page = () => {
+export default function Admin() {
   const [selected, setSelected] = useState<Tastes[]>([]);
 
   const toggletaste = (taste: Tastes) => {
@@ -41,25 +34,22 @@ const Page = () => {
     let snackImgKey: string | undefined;
 
     if (file && file.size > 0) {
-      const presignRes = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/storage/presign`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+      const presignRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/storage/presign`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
 
-          body: JSON.stringify({
-            fileName: file.name,
-            fileType: file.type,
-          }),
-        },
-      );
+        body: JSON.stringify({
+          fileName: file.name,
+          fileType: file.type,
+        }),
+      });
       if (!presignRes.ok) {
         console.error('presign failed', await presignRes.text());
         alert('이미지 업로드 준비(presign)에 실패했습니다.');
         return;
       }
-
-      const { data } = await presignRes.json();
+      const data = await presignRes.json();
+      console.log(data);
       const { url, key } = data;
       snackImgKey = key;
 
@@ -107,8 +97,6 @@ const Page = () => {
     console.log('서버 응답:', json);
   };
 
-
-const page = () => {
   return (
     <div>
       <main className="flex flex-col items-center justify-center px-[50px] pt-[24px] pb-[50px]">
@@ -156,9 +144,8 @@ const page = () => {
               <legend className="pb-2.5 text-lg font-semibold">
                 5. 맛 (최대 4개까지 선택 가능)
               </legend>
-
               <div className="flex w-full flex-row gap-2">
-                {TastesOptions.map((opt) => {
+                {TASTE_LIST.map((opt) => {
                   const isChecked = selected.includes(opt.value);
                   const isDisabled = !isChecked && selected.length >= 4;
                   return (
@@ -166,8 +153,8 @@ const page = () => {
                       key={opt.value}
                       isChecked={isChecked}
                       isDisabled={isDisabled}
-                      onChangeHandler={() => toggleFlavor(opt.value)}
-                      value={opt.value}
+                      onChangeHandler={() => toggletaste(opt.value)}
+                      value={opt.label}
                       name="flavor"
                       label={opt.label}
                     ></CheckBoxWithLabel>
@@ -201,13 +188,11 @@ const page = () => {
                   className="h-11 w-full border p-2.5 data-focus:bg-blue-100 data-hover:shadow"
                 ></Input>
               </div>
-
             </Field>
+            <button type="submit">등록하기</button>
           </form>
         </section>
       </main>
     </div>
   );
-};
-
-export default page;
+}

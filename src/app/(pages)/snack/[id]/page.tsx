@@ -35,9 +35,7 @@ export default async function SnackDetailPage({ params }: PageProps) {
         </figure>
         <section className="text-[#2E1515]">
           <header className="mb-5 flex flex-col gap-5.5">
-            <h4 className="">
-              {SNACK_CATEGORY_CODE_TO_NAME[snack.snackTypeCode]}
-            </h4>
+            <h4 className="">{SNACK_CATEGORY_CODE_TO_NAME[snack.snackTypeCode]}</h4>
             <div className="flex flex-row">
               <h1 className="mr-12 text-2xl font-semibold">{snack.name}</h1>
               <Heart size={24} />
